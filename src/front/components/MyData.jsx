@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-export const MyData = () => {
-
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+export const MyData = ({ onEditClick }) => {
 
     const { store, dispatch } = useGlobalReducer();
     const { userData } = store
@@ -27,7 +24,10 @@ export const MyData = () => {
                 <p><strong>Dirección:</strong> {userData.direction}</p>
                 <p><strong>Rol:</strong> {userData.rol}</p>
 
-                <button className="btn btn-primary mt-3">
+                <button
+                    className="btn btn-primary mt-3"
+                    onClick={onEditClick}
+                >
                     Editar Mis Datos
                 </button>
 
