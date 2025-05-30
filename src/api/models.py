@@ -140,7 +140,8 @@ class CatPhoto(db.Model):
     __tablename__ = "cat_photo"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    foto: Mapped[str] = mapped_column(Text, nullable=True)
+    foto: Mapped[str] = mapped_column(String(500), nullable=True)
+
 
     cat_id: Mapped[int] = mapped_column(
         ForeignKey("cat_user.id"), nullable=False)

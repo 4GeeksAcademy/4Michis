@@ -392,3 +392,31 @@ def user_profile_picture():
     photo_url = cloudinary_url(user.profile_picture)
     # se respponde con un mensaje y la direccion de la foto
     return jsonify({"userId": user_id, "msg": "foto actualizada", "profilePicture": photo_url})
+
+
+@api.route("/photomichi", methods=["PUT"])
+@jwt_required()
+def photomichi():
+    user_id = get_jwt_identity()
+    # validamos el usuario del token
+    cat= CatPhoto.query.get(user_id)  # buscamos el usuario en la base de datos
+    if cat is None:
+        return jsonify({"msg": "No se encontro el usuario"}), 403
+    # validamos que la peticion contenga la imagen
+    # esta vez la peticion no sera json sino form data
+    photo = request.files["PERFIL FEDE"]
+    if photo is None:
+        return jsonify({"msg": "No se envio una imagen"}), 400
+    # se carga la imagen a cloudinary
+    # llamamos a l a galeria de cloudinary para hacer la carga de la foto
+    upload_result = upload(photo)
+    print(upload_result)
+    """ photo_url = cloudinary_url(upload_result['public_id'], format="jpg", crop="fill", width=100,
+                               height=100) """
+    # actulizar el usuario con la direccion del recurso en cloudinary
+    cat.foto = upload_result["public_id"]
+    db.session.add(cat)
+    db.session.commit()
+    photo_url = cloudinary_url(cat.foto)
+    # se respponde con un mensaje y la direccion de la foto
+    return jsonify({"userId": user_id, "msg": "foto actualizada", "profilePicture": photo_url})
