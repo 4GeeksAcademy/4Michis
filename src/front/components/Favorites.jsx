@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const Favorites = () => {
     const { store, dispatch } = useGlobalReducer();
-    const { userData } = store;
+    const { userData, useFavorites } = store;
     const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
@@ -17,11 +17,11 @@ export const Favorites = () => {
     useEffect(() => {
         const fetchLoadingFavorites = async () => {
             try {
-                const token = localStorage.getItem("token"); // Obtén el token aquí
+                const token = localStorage.getItem("token");
                 if (!token) {
                     setError("No hay token de autenticación. Por favor, inicia sesión.");
                     setLoading(false);
-                    navigate('/login'); // Redirigir a login si no hay token
+                    navigate('/login');
                     return;
                 }
 
@@ -83,8 +83,13 @@ export const Favorites = () => {
 
     return (
         <div>
-            <h3>COMPONENTE FAVORITOS</h3>
+            <div className="container py-4">
+                <h2 className="text-center mb-4 fw-bold fs-2">MIS FAVORITOS</h2>
 
+                <div className="row justify-content-center">
+
+                </div>
+            </div>
         </div>
     );
 };
