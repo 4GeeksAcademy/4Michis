@@ -12,7 +12,7 @@ const EditarGato = ({ cat, onClose, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/cats/${cat.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats/${cat.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
