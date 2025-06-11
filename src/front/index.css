@@ -21,3 +21,13 @@ body,
 .reserved-rights {
   font-size: 0.6em;
 }
+
+.profile-menu-img img {
+  width: 40%;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.profile-menu-card :hover {
+  background-color: rgb(225, 236, 255);
+}

@@ -13,7 +13,7 @@ export const MyData = ({ onEditClick }) => {
 
     return (
         <div className="container mt-5">
-            <h2 className="text-center mb-4">Mis Datos de Usuario</h2>
+            <h2 className="text-center mb-4">Datos de Usuario</h2>
 
             <div className="card shadow-sm p-4 mx-auto" style={{ maxWidth: '600px' }}>
                 <p><strong>Nombre:</strong> {userData.name} {userData.lastname}</p>
