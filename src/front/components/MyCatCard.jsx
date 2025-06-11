@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import ContactModal from "./ContactModal";
 import defaultProfileImg from "../assets/img/default_profile.png";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import CatStatusToggle from "./CatStatusToggle";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
     const [selectedContact, setSelectedContact] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const { dispatch } = useGlobalReducer();
+    const navigate = useNavigate();
 
     const alreadyHasAdoptant =
         Array.isArray(cat.contacts) && cat.contacts.some(c => c.is_selected);
@@ -33,7 +36,23 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
 
     return (
         <div className="card h-100">
-            <div className="card-header fw-bold">{cat.cat_name}</div>
+            <div className="card-header fw-bold">{cat.cat_name}
+                <button
+                    className="btn btn-sm btn-outline-primary"
+                    onClick={() => navigate(`/edit-cat/${cat.cat_id}`)}
+                    title="Editar datos del michi"
+                >
+                    Editar
+                </button>
+                <CatStatusToggle
+                    catId={cat.cat_id}
+                    isActive={cat.is_active}
+
+                    onStatusChange={() => {
+                        if (onRefresh) onRefresh();
+                    }}
+                />
+            </div>
             <div className="card-body">
                 {recentContacts.length === 0 ? (
                     <p className="text-muted">Ningún interesado aún.</p>
