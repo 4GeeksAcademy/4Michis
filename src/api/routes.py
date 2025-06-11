@@ -700,7 +700,7 @@ def insert_test_cats(n=10, user_id=1):
         db.session.flush()
 
         photo = CatPhoto(
-            foto="https://placekitten.com/300/300",
+            foto="",
             cat_id=cat.id,
             user_id=user_id
         )

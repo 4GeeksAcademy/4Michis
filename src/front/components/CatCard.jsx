@@ -16,6 +16,7 @@ const CatCard = ({ cat }) => {
 
   return (
     <div
+
       className="card m-2 shadow-sm"
       style={{
         width: "14rem",
@@ -25,6 +26,7 @@ const CatCard = ({ cat }) => {
         backgroundColor: "#F8F8F7",
         opacity: cat.is_active ? 1 : 0.6,
       }}
+
       onClick={handleClick}
       title={cat.is_active ? "Haz clic para ver más" : "Este michi ya fue adoptado"}
     >

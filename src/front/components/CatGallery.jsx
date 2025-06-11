@@ -37,16 +37,10 @@ export const CatGallery = () => {
   };
 
   return (
-    <div
-      className="container py-4 mt-5 mb-5"
-      style={{
-        backgroundImage: `url('https://i.pinimg.com/1200x/15/09/de/1509de0d8bdab65ad19e63f92b5934f0.jpg')`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <h2 className="text-center mb-4 fw-bold fs-2">¡NUESTROS MICHIS!</h2>
+
+    <div className="container py-4 mt-5 mb-5 cat-gallery">
+      <h2 className="text-center mb-4 fw-bold chewy-font cat-gallery-title">¡Michis Esperando Hogar!</h2>
+
       <hr />
 
       <div className="row justify-content-center g-1">
