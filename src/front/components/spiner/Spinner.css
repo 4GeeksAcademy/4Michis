@@ -1,0 +1,72 @@
+#loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Fondo blanco semitransparente */
+  display: flex; /* Para centrar ambos elementos */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que esté por encima de todo */
+  backdrop-filter: blur(2px); /* Efecto de desenfoque sutil, opcional */
+  -webkit-backdrop-filter: blur(2px); /* Para compatibilidad con Safari */
+}
+
+/* El elemento que creará el efecto de círculo giratorio */
+.spinner-rotation-effect {
+  width: 150px; /* Tamaño del círculo */
+  height: 150px;
+  /* border: 12px solid #f3f3f3; */ /* Color de la parte "inactiva" */
+  border-top: 8px solid #009ee2; /* Color de la parte "activa" (azul de Bootstrap) */
+  border-radius: 50%; /* Hace que sea un círculo */
+  position: absolute; /* Para que quede en el centro de #loader-container */
+  animation: spin 1s linear infinite; /* ¡Aquí la animación de rotación! */
+}
+
+/* Contenedor para el logo que solo parpadea */
+.spinner-logo-container {
+  width: 100px; /* Mismo tamaño que el círculo para centrar la imagen */
+  height: 100px;
+  display: flex; /* Para centrar el logo dentro de este contenedor */
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* Para que quede encima del círculo que gira */
+}
+
+/* El logo en sí */
+.spinner-logo {
+  width: 70%; /* Tamaño del logo dentro de su contenedor (ajústalo) */
+  height: 70%;
+  object-fit: contain;
+  /* ¡Aquí la animación de aparecer/desaparecer para el logo! */
+  animation: fade-in-out 1.5s ease-in-out infinite;
+}
+
+/* Definición de la animación de rotación */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Definición de la animación de aparecer/desaparecer */
+@keyframes fade-in-out {
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  0% {
+    opacity: 0;
+  }
+}
