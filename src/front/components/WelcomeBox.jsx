@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 export const WelcomeBox = () => {
   return (
-    <div className="bg-white rounded shadow-md text-center max-w-2xl mx-auto welcome-box"
+    <div className="bg-white p-6 rounded shadow-md text-center max-w-2xl mx-auto mt-10"
       style={{
         backgroundImage: `url('https://images.unsplash.com/photo-1619326229465-1942c876e17c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjQ3fHxjYXRvcyUyMHklMjBwZXJvc25hc3xlbnwwfHwwfHx8MA%3D%3D')`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>
-      <h1 className="text-2xl font-bold mb-4 text-white chewy-font">
+      <h1 className="text-2xl font-bold mb-4 text-white">
         ¡Bienvenido/a a nuestra página de adopción de Gatos!
       </h1>
       <p className="mb-2 text-white">
