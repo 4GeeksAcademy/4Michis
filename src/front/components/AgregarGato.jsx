@@ -31,7 +31,7 @@ export const AgregarGato = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/  api/cats`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
