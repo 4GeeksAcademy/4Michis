@@ -21,7 +21,6 @@ sqlalchemy = "*"
 flask-bcrypt = "*"
 flask-migrate = "*"
 cloudinary = "*"
-faker = "*"
 
 [requires]
 python_version = "3.13"

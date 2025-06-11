@@ -1,45 +1,37 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AddFavorite } from "./AddFavorite";
-import defaultMichiPlaceholder from "../assets/img/default_profile.png";
 
 const CatCard = ({ cat }) => {
   const navigate = useNavigate();
 
+  // Función para redirigir al perfil del gato
   const handleClick = () => {
-    if (cat.is_active) {
-      navigate(`/cat/${cat.id}`);
-    }
+    navigate(`/cat/${cat.id}`);
   };
 
-  const imageUrl = cat.photos?.[0]?.foto || defaultMichiPlaceholder;
+  // Imagen del gato (o placeholder si no hay fotos)
+  const imageUrl =
+    cat.photos?.[0]?.url || "https://via.placeholder.com/300x200?text=Sin+foto";
 
   return (
     <div
-      className="card m-2 shadow-sm"
-      style={{
-        width: "14rem",
-        height: "350px",
-        cursor: cat.is_active ? "pointer" : "not-allowed",
-        position: "relative",
-        backgroundColor: "#F8F8F7",
-        opacity: cat.is_active ? 1 : 0.6,
-      }}
+      className="card m-2 shadow-sm border-0"
+      style={{ width: "14rem", cursor: "pointer", position: "relative" }}
       onClick={handleClick}
-      title={cat.is_active ? "Haz clic para ver más" : "Este michi ya fue adoptado"}
     >
-      <div className="p-1" style={{ overflow: "hidden" }}>
+      {/* Imagen con borde azul */}
+      <div style={{ border: "3px solid #00aaff", borderRadius: "10px", overflow: "hidden" }}>
         <img
           src={imageUrl}
-          className="d-block w-100"
+          className="card-img-top"
           alt={`Foto de ${cat.name}`}
           style={{ height: "160px", objectFit: "cover" }}
         />
       </div>
 
+      {/* Información del gato */}
       <div className="card-body text-center p-2 position-relative">
         <h6 className="card-title text-uppercase fw-bold mb-1">{cat.name}</h6>
-        <hr />
         <p className="mb-1" style={{ fontSize: "0.85rem" }}>
           <strong>Raza:</strong> {cat.breed || "No especificada"}
         </p>
@@ -53,13 +45,18 @@ const CatCard = ({ cat }) => {
           <strong>Sexo:</strong> {cat.sex === "male" ? "Macho" : "Hembra"}
         </p>
 
-        <div
+        {/* Icono de corazón (decorativo por ahora) */}
+        <span
           className="position-absolute"
-          style={{ bottom: "10px", right: "10px" }}
-          onClick={(e) => e.stopPropagation()}
+          style={{
+            bottom: "10px",
+            right: "10px",
+            color: "#bbb",
+            fontSize: "18px"
+          }}
         >
-          <AddFavorite michiId={cat.id} />
-        </div>
+          ♡
+        </span>
       </div>
     </div>
   );
