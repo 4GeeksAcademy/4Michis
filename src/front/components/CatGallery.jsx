@@ -15,8 +15,11 @@ export const CatGallery = () => {
 
         const data = await response.json();
 
-        // Asegura que el formato de la respuesta sea un arreglo
-        const catsArray = Array.isArray(data) ? data : data.cats || [];
+        // Obtener arreglo y filtrar solo gatos activos
+        const catsArray = Array.isArray(data)
+          ? data
+          : data.cats?.filter(cat => cat.is_active) || [];
+
         setCats(catsArray);
       } catch (error) {
         console.error("Error al cargar los gatos:", error);

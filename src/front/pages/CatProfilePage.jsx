@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Carousel } from "bootstrap";
+
 import ContactModal from "../components/ContactModal";
 import UploadCatProfilePicture from "../components/UploadCatProfilePicture";
 
