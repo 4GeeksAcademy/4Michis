@@ -87,3 +87,35 @@ body,
 .mycat-card-name {
   font-size: 1.5rem;
 }
+
+.title-box {
+  border-bottom: 3px solid #009ee2;
+  padding-bottom: 0.3em;
+  margin-bottom: 1em;
+  font-family: "Chewy";
+  font-size: 3rem;
+}
+
+.cat-card-h img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.mycat-card-name {
+  font-size: 1.5rem;
+}
+
+/* MOVIMIENTO CARD */
+.cat-card-hover-effect {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cat-card-hover-effect:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

@@ -17,7 +17,7 @@ const CatCard = ({ cat }) => {
 
   return (
     <div
-      className="card m-2 shadow-sm cat-card-container"
+      className="card m-2 shadow-sm cat-card-container cat-card-hover-effect"
       style={{ width: "14rem", height: "350px", cursor: "pointer", position: "relative", backgroundColor: '#F8F8F7' }}
       onClick={handleClick}
     >
