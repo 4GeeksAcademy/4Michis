@@ -32,7 +32,7 @@ const EditarGato = ({ cat, onClose, onSave }) => {
     }
   };
 
-   return (
+  return (
     <div className="container py-5 d-flex justify-content-center">
       <div className="col-12 col-md-8 col-lg-6 bg-body-tertiary p-4 rounded shadow">
         <h2 className="text-center fw-bold mb-4 display-6">Editar Gato</h2>
@@ -79,8 +79,16 @@ const EditarGato = ({ cat, onClose, onSave }) => {
           </div>
 
           <div className="d-flex justify-content-center gap-3">
-            <button type="submit" className="btn btn-success px-4">Guardar</button>
-            <button type="button" className="btn btn-secondary px-4" onClick={onClose}>Cancelar</button>
+            <button type="submit" className="btn button-4michis chewy-font ms-2">
+              Guardar
+            </button>
+            <button
+              type="button"
+              className="btn btn-dark chewy-font"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
           </div>
         </form>
       </div>
