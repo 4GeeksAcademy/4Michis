@@ -160,7 +160,7 @@ export const AgregarGato = () => {
           </div>
 
           <div className="text-center">
-            <button className="btn btn-success" type="submit">
+            <button className="btn button-4michis chewy-font ms-2" type="submit">
               Agregar gato
             </button>
           </div>
