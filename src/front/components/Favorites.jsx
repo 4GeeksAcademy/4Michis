@@ -16,6 +16,9 @@ export const Favorites = () => {
 
     const defaultMichiImg = defaultMichiPlaceholder;
 
+    const handleClick = (catId) => {
+        navigate(`/cat/${catId}`);
+    };
 
 
     const fetchLoadingFavorites = useCallback(async () => {
@@ -98,9 +101,9 @@ export const Favorites = () => {
                                                 objectFit: 'cover',
                                                 width: '100%',
                                                 borderRadius: '8px',
-
-
+                                                cursor: "pointer"
                                             }}
+                                            onClick={() => handleClick(michi.id)}
                                         />
                                         <div className="card-body d-flex flex-column justify-content-between">
                                             <div>
