@@ -183,8 +183,22 @@ export const Profile = () => {
         fetchMyCats();
     }, [token]);
 
+
+    const refreshMyCats = async () => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats-contacted`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            const data = await res.json();
+            dispatch({ type: "set_my_cats", payload: data });
+        } catch (err) {
+            console.error("Error recargando gatos:", err);
+        }
+    };
+
     return (
-        <div className="container py-5">
+        <div className="container">
             {token ? (
                 <>
                     {activeSection === 'favorites' && <Favorites />}
@@ -209,26 +223,27 @@ export const Profile = () => {
                     )}
 
                     {activeSection === 'my-cats' && (
-                        <>
-                            <h2 className="text-center mt-4">Mis Michis sin adoptar</h2>
+                        <>  <div className="form-control rounded shadow-sm pd-4 pl-4 mb-3">
+                            <h2 className="text-center mt-4 title-box">Mis Michis sin adoptar</h2>
                             {unadoptedCats.length === 0 ? (
                                 <p className="text-center text-muted">No tienes michis sin adoptar.</p>
                             ) : (
                                 <div className="row">
                                     {unadoptedCats.map((cat) => (
                                         <div key={cat.cat_id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                                            <MyCatCard cat={cat} isOwner={true} onAdoptSelect={handleAdoptSelect} />
+                                            <MyCatCard cat={cat} isOwner={true} onAdoptSelect={handleAdoptSelect} onRefresh={refreshMyCats} />
                                         </div>
                                     ))}
                                 </div>
                             )}
+                        </div>
 
                             {givenCatsWithAdoptant.length > 0 && (
-                                <div className="mb-5">
-                                    <h3 className="text-center mb-3">Tus michis adoptados por otros</h3>
+                                <div className="mb-5 form-control rounded shadow-sm  pd-4 pl-4 mb-3">
+                                    <h3 className="text-center mb-3 title-box">Tus michis adoptados por otros</h3>
                                     <div className="row">
                                         {givenCatsWithAdoptant.map((cat) => (
-                                            <div key={cat.cat_id} className="col-md-4 mb-4">
+                                            <div key={cat.cat_id} className="col-md-3 mb-4">
                                                 <AdoptedCatCard
                                                     cat={cat}
                                                     userLabel="Adoptante"
@@ -242,11 +257,11 @@ export const Profile = () => {
                             )}
 
                             {adoptedCats.length > 0 && (
-                                <div className="mb-5">
-                                    <h3 className="text-center mb-3">Has adoptado estos michis</h3>
+                                <div className="mb-5 form-control rounded shadow-sm   pd-4 pl-4 mb-3">
+                                    <h3 className="text-center mb-3 title-box">Has adoptado estos michis</h3>
                                     <div className="row">
                                         {adoptedCats.map((cat) => (
-                                            <div key={cat.cat_id} className="col-md-4 mb-4">
+                                            <div key={cat.cat_id} className="col-md-3 mb-4">
                                                 <AdoptedCatCard
                                                     cat={cat}
                                                     userLabel="Dueño anterior"
@@ -263,7 +278,8 @@ export const Profile = () => {
                 </>
             ) : (
                 <p className="text-danger">No tienes acceso. Inicia sesión primero.</p>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };

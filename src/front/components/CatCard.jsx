@@ -17,7 +17,7 @@ const CatCard = ({ cat }) => {
 
   return (
     <div
-      className="card m-2 shadow-sm cat-card-container"
+      className="card m-2 shadow-sm cat-card-container cat-card-hover-effect"
       style={{ width: "14rem", height: "350px", cursor: "pointer", position: "relative", backgroundColor: '#F8F8F7' }}
       onClick={handleClick}
     >
@@ -53,7 +53,7 @@ const CatCard = ({ cat }) => {
             right: "10px",
 
           }}
-          // Importante: Detenemos la propagación del clic aquí para que el botón AddFavorite funcione
+          // 22 Importante: Detenemos la propagación del clic aquí para que el botón AddFavorite funcione
           // y no active el handleClick de la tarjeta principal al hacer clic en él.
           onClick={(e) => e.stopPropagation()}
         >

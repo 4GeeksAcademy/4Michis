@@ -21,31 +21,28 @@ export const Navbar = () => {
 
 	return (
 		<nav className="navbar navbar-dark bg-light px-4">
-			<span><img className="michis-logo" src={michisLogo} /></span>
-			<span className="d-flex">
-				<Link className="nav-link" to="/">
-					Inicio
-				</Link>
-			</span>
-
-			<form onSubmit={handleSearch} className="d-flex">
-				<input
-					type="text"
-					placeholder="Buscar michi..."
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-					className="form-control"
-				/>
-				<button type="submit" className="btn btn-primary ms-2">Buscar</button>
-			</form>
-
-			<div className="d-flex gap-2">
-				{!isLoggedIn && !isOnRegisterPage && (
-					<Link to="/register" className="btn btn-outline-dark">
-						Register
-					</Link>
-				)}
-				<AuthButton />
+			<div className="container">
+				<Link className="nav-link mx-auto" to="/"><span><img className="michis-logo" src={michisLogo} /></span></Link>
+				<div className="mx-auto p-2 p-md-4">
+					<form onSubmit={handleSearch} className="d-flex">
+						<input
+							type="text"
+							placeholder="Buscar michi..."
+							value={query}
+							onChange={(e) => setQuery(e.target.value)}
+							className="form-control"
+						/>
+						<button type="submit" className="btn button-4michis chewy-font ms-2">Buscar</button>
+					</form>
+				</div>
+				<div className="d-flex gap-2 mx-auto">
+					{!isLoggedIn && !isOnRegisterPage && (
+						<Link to="/register" className="btn button-4michis chewy-font">
+							Registrarse
+						</Link>
+					)}
+					<AuthButton />
+				</div>
 			</div>
 		</nav>
 	);

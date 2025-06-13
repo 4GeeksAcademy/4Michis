@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import ContactModal from "./ContactModal";
 import defaultProfileImg from "../assets/img/default_profile.png";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import CatStatusToggle from "./CatStatusToggle";
+import { useNavigate } from "react-router-dom";
+import defaultMichiPlaceholder from '../assets/img/default_profile.png';
 
-const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
+const MyCatCard = ({ cat, isOwner, onAdoptSelect, onRefresh }) => {
     const [selectedContact, setSelectedContact] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const { dispatch } = useGlobalReducer();
+    const { store, dispatch } = useGlobalReducer();
+    const navigate = useNavigate();
 
     const alreadyHasAdoptant =
         Array.isArray(cat.contacts) && cat.contacts.some(c => c.is_selected);
@@ -25,6 +29,15 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
         if (onAdoptSelect) onAdoptSelect(cat.cat_id, contactorId);
     };
 
+    const handleNavigateToEdit = (e) => {
+        e.stopPropagation();
+        navigate(`/edit-cat/${cat.cat_id}`);
+    };
+
+    const handleCardClick = () => {
+        navigate(`/cat/${cat.cat_id}`);
+    };
+
     const recentContacts = Array.isArray(cat.contacts)
         ? [...cat.contacts]
             .sort((a, b) => new Date(b.contacted_at) - new Date(a.contacted_at))
@@ -32,8 +45,52 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
         : [];
 
     return (
-        <div className="card h-100">
-            <div className="card-header fw-bold">{cat.cat_name}</div>
+        <div
+            className="card h-100 text-center"
+            style={{ height: "18rem", cursor: "pointer", position: "relative" }}
+            onClick={handleCardClick}
+        >
+            {/* Cabecera con nombre y botones */}
+            <div className="card-header d-flex justify-content-center">
+                <div className="row w-100">
+                    <div className="col-4 p-0 cat-card-h">
+                        <img
+                            src={cat.photo || defaultMichiPlaceholder}
+                            alt={`Foto de ${cat.cat_name}`}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
+                    <div className="col-8">
+                        <div className="row justify-content-center">
+                            <div className="col-12 d-flex justify-content-center py-3">
+                                <h6 className="fw-bold m-0 mycat-card-name">{cat.cat_name}</h6>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 d-flex justify-content-center gap-1">
+                                    <button
+                                        className="btn btn-sm btn-outline-primary px-2 py-1 mb-1"
+                                        onClick={handleNavigateToEdit}
+                                        title="Editar gato"
+                                    >
+                                        <i className="fas fa-pen"></i>
+                                    </button>
+                                    <div onClick={(e) => e.stopPropagation()}>
+                                        <CatStatusToggle
+                                            catId={cat.cat_id}
+                                            onStatusChange={onRefresh}
+                                            size="sm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {/* Cuerpo con contactos */}
             <div className="card-body">
                 {recentContacts.length === 0 ? (
                     <p className="text-muted">Ningún interesado aún.</p>
@@ -57,7 +114,10 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
                                     <div className="d-flex gap-2">
                                         <button
                                             className="btn btn-sm btn-outline-primary"
-                                            onClick={() => handleOpenModal(contact)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleOpenModal(contact);
+                                            }}
                                             title="Ver Datos de usuario"
                                         >
                                             <i className="fas fa-address-card"></i>
@@ -65,7 +125,10 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
                                         {isOwner && !alreadyHasAdoptant && !contact.is_selected && (
                                             <button
                                                 className="btn btn-sm btn-success"
-                                                onClick={() => handleMarkAsAdoptant(contact.contactor_id)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleMarkAsAdoptant(contact.contactor_id);
+                                                }}
                                                 title="Marcar como adoptante"
                                             >
                                                 <i className="fas fa-handshake"></i>
@@ -86,14 +149,15 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
                     </div>
                 )}
             </div>
-
-            <ContactModal
-                show={showModal}
-                person={selectedContact}
-                title="Información del contacto"
-                onClose={handleCloseModal}
-            />
-        </div>
+            <div onClick={(e) => e.stopPropagation()}>
+                <ContactModal
+                    show={showModal}
+                    person={selectedContact}
+                    title="Información del contacto"
+                    onClose={handleCloseModal}
+                />
+            </div>
+        </div >
     );
 };
 

@@ -14,6 +14,7 @@ import { CatGallery } from "./components/CatGallery";
 import { AgregarGato } from "./components/AgregarGato";
 import ReviewForm from "./components/ReviewForm";
 import SearchResults from "./components/SearchResults";
+import EditCatForm from "./pages/EditCatForm";
 
 
 export const router = createBrowserRouter(
@@ -22,7 +23,7 @@ export const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/register" element={<RegisterForm />} />
       <Route path="/login" element={<LoginForm />} />
-      
+
 
       <Route path="/private" element={
         <PrivateRoute>
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<CatGallery />} />
       <Route path="/cat/:catId" element={<CatProfilePage />} />  {/* Ruta para el perfil del gato */}
       <Route path="/search" element={<SearchResults />} />
+      <Route path="/edit-cat/:catId" element={<EditCatForm />} />
 
 
       <Route path="/review" element={<ReviewForm />} />

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
   const [photoFile, setPhotoFile] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("info");
 
   const handleChange = (e) => {
     setPhotoFile(e.target.files[0]);
@@ -28,14 +30,17 @@ const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Foto subida correctamente.");
-        onUploadSuccess(data.photo); // notificar al padre
+        setMessage("Foto subida correctamente.");
+        setMessageType("success");
+        onUploadSuccess(data.photo);
       } else {
-        alert("Error al subir la foto: " + data.msg);
+        setMessage("Error al subir la foto: " + data.msg);
+        setMessageType("danger");
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("Error de red al subir la foto");
+      setMessage("Error de red al subir la foto");
+      setMessageType("danger");
     }
   };
 
@@ -46,6 +51,12 @@ const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
       <button onClick={handleUpload} className="btn btn-sm btn-success">
         Subir Foto
       </button>
+
+      {message && (
+        <div className={`alert alert-${messageType} mt-3 text-center`} role="alert">
+          {message}
+        </div>
+      )}
     </div>
   );
 };

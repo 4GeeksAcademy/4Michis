@@ -4,7 +4,7 @@ import mimichisImg from "../assets/img/mimichis.png";
 import ratingImg from "../assets/img/rating.png";
 import dataImg from "../assets/img/data.png";
 import editdaImg from "../assets/img/editda.png";
-import michiAddImg from "../assets/img/editda.png";
+import michiAddImg from "../assets/img/addcat.png";
 
 const ProfileMenu = ({ onSelect }) => {
     const sections = [
@@ -20,7 +20,7 @@ const ProfileMenu = ({ onSelect }) => {
     return (
         <div className="row d-flex justify-content-center">
             {sections.map(({ key, label, icon }) => (
-                <div key={key} className="col-md-2 mb-3 profile-menu-card ">
+                <div key={key} className="col-6 col-md-2 mb-3 profile-menu-card ">
 
                     <div
                         className="card h-100 shadow-sm "

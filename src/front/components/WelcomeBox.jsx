@@ -1,35 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import bg1 from "../assets/img/michibgwl_1.webp";
+import bg2 from "../assets/img/michibgwl_2.webp";
+import bg3 from "../assets/img/michibgwl_3.webp";
+import bg4 from "../assets/img/michibgwl_4.webp";
+import bg5 from "../assets/img/michibgwl_5.webp";
+import bg6 from "../assets/img/michibgwl_6.webp";
+import bg7 from "../assets/img/michibgwl_7.webp";
+import bg8 from "../assets/img/michibgwl_8.webp";
+
+const backgroundImages = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8];
 
 export const WelcomeBox = () => {
+  const [currentBg, setCurrentBg] = useState(0);
+  const [previousBg, setPreviousBg] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    // Precarga de imágenes
+    backgroundImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const interval = setInterval(() => {
+      setPreviousBg(currentBg);
+      setFade(false);
+      setTimeout(() => {
+        setCurrentBg(prev => (prev + 1) % backgroundImages.length);
+        setFade(true);
+      }, 600); // muy corto, solo para preparar el cambio
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentBg]);
+
   return (
-    <div className="bg-white rounded shadow-md text-center max-w-2xl mx-auto welcome-box"
-      style={{
-        /* backgroundImage: `url('https://images.unsplash.com/photo-1619326229465-1942c876e17c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjQ3fHxjYXRvcyUyMHklMjBwZXJvc25hc3xlbnwwfHwwfHx8MA%3D%3D')`, */
-        backgroundImage: `url('https://images.unsplash.com/photo-1687993377657-f2fb8d53079e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTd8fGdhdG9zJTIweSUyMGJlc29zJTIwcGVyc29uYXN8ZW58MHx8MHx8fDA%3D)`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '500px'
-      }}>
-      <h1 className="text-2xl font-bold mb-4 text-white chewy-font">
-        ¡Bienvenido/a a nuestra página de adopción de Gatos!
-      </h1>
-      <p className="mb-2 text-white">
-        Aquí encontrarás a tu futuro compañero felino.
-      </p>
-      <p className="mb-2 text-white">
-        Creemos que cada gato merece un hogar lleno de amor, y estamos aquí para ayudarte a encontrar la pareja perfecta.
-      </p>
-      <p className="mb-4 text-white">
-        Explora los perfiles de <strong>nuestros adorables gatos</strong>, listos para ronronear en sus nuevas vidas.
-      </p>
-      <p className="mb-6 text-white">
-        ¿Estás listo/a para abrir tu corazón y tu hogar a uno de ellos?
-      </p>
-      <Link to="/register" className="btn btn-primary mb-4">
-        ¡Regístrate!
-      </Link>
+    <div className="position-relative bg-dark rounded shadow-md text-center max-w-2xl mx-auto welcome-box" style={{ height: "500px" }}>
+      {/* Fondo anterior */}
+      <div
+        className="welcome-bg"
+        style={{
+          backgroundImage: `url('${backgroundImages[previousBg]}')`,
+          opacity: fade ? 0 : 1,
+          zIndex: 0,
+
+        }}
+      ></div>
+
+      {/* Fondo nuevo */}
+      <div
+        className="welcome-bg"
+        style={{
+          backgroundImage: `url('${backgroundImages[currentBg]}')`,
+          opacity: fade ? 1 : 0,
+          zIndex: 1,
+
+        }}
+      ></div>
+
+      {/* Contenido */}
+      <div className="">
+        <div className="welcome-box col-12 col-md-6">
+          <h1 className="welcome-title"> ¡Bienvenido/a a nuestra página de adopción de Gatos!</h1>
+          <p className="welcome-text">
+            Descubre cientos de gatos adorables que buscan un nuevo hogar lleno de amor. ¡Tu mejor amigo te está esperando!
+          </p>
+          <a href="/register" className="welcome-cta">¡Regístrate ahora!</a>
+        </div>
+      </div>
     </div>
   );
 };

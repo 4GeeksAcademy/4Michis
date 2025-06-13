@@ -8,13 +8,18 @@ const AdoptedCatCard = ({ cat, userLabel, onRate, showRateButton = true }) => {
 
     if (!cat) return null;
 
+    const handleClick = () => {
+        navigate(`/cat/${cat.cat_id}`);
+    };
+
+
     const nickname =
         userLabel.toLowerCase().includes("adoptante")
             ? cat.adoptant_nickname
             : cat.owner_nickname;
 
     return (
-        <div className="card h-100 shadow-sm">
+        <div className="card h-100 shadow-sm" style={{ height: "18rem", cursor: "pointer", position: "relative" }} onClick={handleClick}>
             <img
                 src={cat.photo || "https://via.placeholder.com/400x300?text=Michi"}
                 className="card-img-top"
@@ -28,13 +33,22 @@ const AdoptedCatCard = ({ cat, userLabel, onRate, showRateButton = true }) => {
                 </p>
                 <div className="mt-auto">
                     {showRateButton ? (
-                        <button className="btn btn-outline-primary w-100" onClick={onRate}>
+                        <button
+                            className="btn btn-outline-primary w-100"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onRate();
+                            }}
+                        >
                             Valorar
                         </button>
                     ) : (
                         <button
                             className="btn btn-outline-secondary w-100"
-                            onClick={() => navigate("/private?section=ratings")}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                navigate("/private?section=ratings");
+                            }}
                         >
                             Ir a valoraciones
                         </button>

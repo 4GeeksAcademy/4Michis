@@ -92,9 +92,9 @@ export const RegisterForm = () => {
 
     return (
         <div className="register-container d-flex justify-content-center">
-            <div className="register-form col-4 p-8 mt-5 mb-5">
+            <div className="col-12 col-md-5 p-4 mt-5 mb-5">
                 <form onSubmit={handleSubmit} className="p-4 bg-light rounded shadow">
-                    <h2>Registro como Michi Lover</h2>
+                    <h2 className="chewy-font text-center">Registro como Michi Lover</h2>
                     <hr></hr>
                     <p>Te estás registrando en el sistema de distribución de gatos más adorable de la red, no te vas a arrepentir de esta gran decisión</p>
 
@@ -116,7 +116,7 @@ export const RegisterForm = () => {
 
 
                     <div className="d-flex justify-content-end">
-                        <button type="submit" className="btn btn-primary">Registrar</button>
+                        <button type="submit" className="btn button-4michis chewy-font">Registrar</button>
                     </div>
 
                     {submitStatus && (
