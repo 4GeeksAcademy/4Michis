@@ -223,8 +223,8 @@ export const Profile = () => {
                     )}
 
                     {activeSection === 'my-cats' && (
-                        <>
-                            <h2 className="text-center mt-4">Mis Michis sin adoptar</h2>
+                        <>  <div className="form-control rounded shadow-sm pd-4 pl-4 mb-3">
+                            <h2 className="text-center mt-4 title-box">Mis Michis sin adoptar</h2>
                             {unadoptedCats.length === 0 ? (
                                 <p className="text-center text-muted">No tienes michis sin adoptar.</p>
                             ) : (
@@ -236,13 +236,14 @@ export const Profile = () => {
                                     ))}
                                 </div>
                             )}
+                        </div>
 
                             {givenCatsWithAdoptant.length > 0 && (
-                                <div className="mb-5">
-                                    <h3 className="text-center mb-3">Tus michis adoptados por otros</h3>
+                                <div className="mb-5 form-control rounded shadow-sm  pd-4 pl-4 mb-3">
+                                    <h3 className="text-center mb-3 title-box">Tus michis adoptados por otros</h3>
                                     <div className="row">
                                         {givenCatsWithAdoptant.map((cat) => (
-                                            <div key={cat.cat_id} className="col-md-4 mb-4">
+                                            <div key={cat.cat_id} className="col-md-3 mb-4">
                                                 <AdoptedCatCard
                                                     cat={cat}
                                                     userLabel="Adoptante"
@@ -256,11 +257,11 @@ export const Profile = () => {
                             )}
 
                             {adoptedCats.length > 0 && (
-                                <div className="mb-5">
-                                    <h3 className="text-center mb-3">Has adoptado estos michis</h3>
+                                <div className="mb-5 form-control rounded shadow-sm   pd-4 pl-4 mb-3">
+                                    <h3 className="text-center mb-3 title-box">Has adoptado estos michis</h3>
                                     <div className="row">
                                         {adoptedCats.map((cat) => (
-                                            <div key={cat.cat_id} className="col-md-4 mb-4">
+                                            <div key={cat.cat_id} className="col-md-3 mb-4">
                                                 <AdoptedCatCard
                                                     cat={cat}
                                                     userLabel="Dueño anterior"
@@ -277,7 +278,8 @@ export const Profile = () => {
                 </>
             ) : (
                 <p className="text-danger">No tienes acceso. Inicia sesión primero.</p>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };

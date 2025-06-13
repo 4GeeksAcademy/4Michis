@@ -21,8 +21,8 @@ const CatProfilePage = () => {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats/${catId}`);
         if (!response.ok) throw new Error("Error al obtener el gato");
         const data = await response.json();
-        if (!data.cat || data.cat.is_active === false) {
-          setCat(null); // ocultar si está inactivo
+        if (!data.cat) {
+          setCat(null);
           return;
         }
         setCat(data.cat);
