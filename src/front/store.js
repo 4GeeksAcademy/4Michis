@@ -162,9 +162,8 @@ export default function storeReducer(store, action = {}) {
         userReviewsDetails: action.payload,
       };
 
-
-
     default:
-      throw Error("Unknown action.");
+      console.warn("Acción desconocida:", action.type);
+      return store;
   }
 }

@@ -553,10 +553,50 @@ def my_cats_with_contacts():
         result.append({
             "cat_id": cat.id,
             "cat_name": cat.name,
+            "photo": cat.photos[0].foto if cat.photos and len(cat.photos) > 0 else None,
             "contacts": contact_list
         })
 
     return jsonify(result), 200
+
+
+@api.route("/cats/<int:cat_id>/adopt/<int:user_id>", methods=["PATCH"])
+@jwt_required()
+def mark_as_adoptant(cat_id, user_id):
+    current_user_id = get_jwt_identity()
+
+    cat = CatUser.query.get(cat_id)
+    if not cat:
+        return jsonify({"error": "Gato no encontrado"}), 404
+
+    print("Dueño del gato:", cat.user_id)
+    print("Usuario actual:", current_user_id)
+
+    if int(cat.user_id) != int(current_user_id):
+        return jsonify({"error": "No tienes permiso para marcar al adoptante"}), 403
+
+    existing_adoptant = CatContactRequest.query.filter_by(
+        cat_id=cat_id,
+        is_selected=True
+    ).first()
+
+    if existing_adoptant:
+        return jsonify({"error": "Ya has seleccionado un adoptante para este gato"}), 400
+
+    contact = CatContactRequest.query.filter_by(
+        cat_id=cat_id,
+        contactor_id=user_id
+    ).first()
+
+    if not contact:
+        return jsonify({"error": "Ese usuario no ha contactado por este gato"}), 404
+
+    contact.is_selected = True
+    cat.is_active = False
+    db.session.commit()
+
+    return jsonify({"msg": "Adoptante marcado correctamente"}), 200
+
 
 @api.route("/cats/<int:cat_id>/toggle-active", methods=["PATCH"])
 @jwt_required()
@@ -645,20 +685,29 @@ def get_user_by_id(user_id):
 
 @api.route('/cats/search', methods=["GET"])
 def search_cats():
-    query = request.args.get("q", "").strip()
+    query = request.args.get("q", "").strip().lower()
+
     if not query:
-        return jsonify([])
+        return jsonify([]), 200
 
-    # Filtra por nombre, raza o color, y solo gatos activos
-    cats = CatUser.query.filter(
-        CatUser.is_active == True,
-        or_(
-            CatUser.name.ilike(f"%{query}%"),
+    translated_sex = None
+    if query in ["macho", "male"]:
+        translated_sex = "male"
+    elif query in ["hembra", "female"]:
+        translated_sex = "female"
+
+    filters = [CatUser.is_active.is_(True)]
+
+    if translated_sex:
+        filters.append(CatUser.sex == translated_sex)
+    else:
+        filters.append(or_(
+            CatUser.age.cast(db.String).ilike(f"%{query}%"),
             CatUser.breed.ilike(f"%{query}%"),
-            CatUser.color.ilike(f"%{query}%")
-        )
-    ).all()
+            CatUser.color.ilike(f"%{query}%"),
+        ))
 
+    cats = CatUser.query.filter(*filters).all()
     return jsonify([cat.serialize() for cat in cats]), 200
 
 
