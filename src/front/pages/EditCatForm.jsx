@@ -4,7 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 const EditCatForm = () => {
   const { catId } = useParams();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
+  const [submitStatus, setSubmitStatus] = useState(""); // ✅ Nuevo estado
   const [formData, setFormData] = useState({
     cat_name: "",
     breed: "",
@@ -12,7 +14,7 @@ const EditCatForm = () => {
     weight: "",
     description: "",
     color: "",
-    sex: ""
+    sex: "",
   });
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const EditCatForm = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats/${catId}`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (!res.ok) throw new Error("No se pudo obtener los datos del gato");
@@ -35,11 +37,11 @@ const EditCatForm = () => {
           weight: cat.weight?.toString() || "",
           description: cat.description || "",
           color: cat.color || "",
-          sex: cat.sex || ""
+          sex: cat.sex || "",
         });
       } catch (err) {
         console.error(err);
-        alert("Error al cargar el gato");
+        setSubmitStatus("Error al cargar el gato."); // ❌ Reemplaza alert
       } finally {
         setLoading(false);
       }
@@ -64,7 +66,7 @@ const EditCatForm = () => {
       weight: Number(formData.weight) || 0,
       description: formData.description,
       color: formData.color,
-      sex: formData.sex
+      sex: formData.sex,
     };
 
     try {
@@ -72,9 +74,9 @@ const EditCatForm = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -82,111 +84,130 @@ const EditCatForm = () => {
         throw new Error(errorData.msg || "Error al actualizar el gato");
       }
 
-      alert("Gato actualizado con éxito");
-      navigate("/private?section=my-cats");
+      setSubmitStatus("Gato actualizado con éxito.");
+
+      setTimeout(() => {
+        navigate("/private?section=my-cats");
+      }, 2000);
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      setSubmitStatus("Error: " + err.message);
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <p className="text-center mt-5">Cargando...</p>;
 
   return (
-    <div className="container py-4">
-      <h2 className="mb-4">Editar gato</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Nombre del gato</label>
-          <input
-            type="text"
-            className="form-control"
-            name="cat_name"
-            value={formData.cat_name}
-            onChange={handleChange}
-          />
-        </div>
+    <div className="d-flex justify-content-center align-items-center mt-5">
+      <div className="p-4 rounded bg-light shadow" style={{ width: "100%", maxWidth: "600px" }}>
+        <h2 className="text-center fw-bold mb-4 display-6">Editar Gato</h2>
 
-        <div className="mb-3">
-          <label className="form-label">Raza</label>
-          <input
-            type="text"
-            className="form-control"
-            name="breed"
-            value={formData.breed}
-            onChange={handleChange}
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Nombre del gato:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="cat_name"
+              value={formData.cat_name}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Edad</label>
-          <input
-            type="number"
-            className="form-control"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            min="0"
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Raza:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="breed"
+              value={formData.breed}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Peso</label>
-          <input
-            type="number"
-            className="form-control"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-            min="0"
-            step="0.1"
-          />
-        </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Edad (años):</label>
+              <input
+                type="number"
+                className="form-control"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                min="0"
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Peso (kg):</label>
+              <input
+                type="number"
+                className="form-control"
+                name="weight"
+                value={formData.weight}
+                onChange={handleChange}
+                min="0"
+                step="0.1"
+              />
+            </div>
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Descripción</label>
-          <textarea
-            className="form-control"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Descripción:</label>
+            <textarea
+              className="form-control"
+              name="description"
+              rows="2"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Color</label>
-          <input
-            type="text"
-            className="form-control"
-            name="color"
-            value={formData.color}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Color:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="color"
+              value={formData.color}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Sexo</label>
-          <select
-            className="form-control"
-            name="sex"
-            value={formData.sex}
-            onChange={handleChange}
-          >
-            <option value="">Seleccionar</option>
-            <option value="male">Macho</option>
-            <option value="female">Hembra</option>
-          </select>
-        </div>
+          <div className="mb-4">
+            <label className="form-label">Sexo:</label>
+            <select
+              className="form-select"
+              name="sex"
+              value={formData.sex}
+              onChange={handleChange}
+            >
+              <option value="">Seleccionar sexo</option>
+              <option value="male">Macho</option>
+              <option value="female">Hembra</option>
+            </select>
+          </div>
 
-        <button type="submit" className="btn btn-primary">Guardar</button>
-        <button
-          type="button"
-          className="btn btn-secondary ms-2"
-          onClick={() => navigate("/private?section=my-cats")}
-        >
-          Cancelar
-        </button>
-      </form>
+          <div className="text-center">
+            <button type="submit" className="btn button-4michis chewy-font ms-2">
+              Guardar
+            </button>
+            <button
+              type="button"
+              className="btn button-cancel-4michis chewy-font ms-2 px-4"
+              onClick={() => navigate("/private?section=my-cats")}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+        {/* ✅ Mensaje de estado */}
+        {submitStatus && (
+          <div className="alert alert-info mt-3 text-center">
+            {submitStatus}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

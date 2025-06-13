@@ -12,6 +12,8 @@ const CatProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [message, setMessage] = useState("");//-----
+  const [messageType, setMessageType] = useState("info");//---------
 
   useEffect(() => {
     const fetchCat = async () => {
