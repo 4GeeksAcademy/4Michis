@@ -59,9 +59,9 @@ export const LoginForm = () => {
 
     return (
         <div className="d-flex justify-content-center">
-            <div className="col-4 p-8 mt-5 mb-5">
+            <div className="col-12 col-md-5 p-4 mt-5 mb-5">
                 <form onSubmit={handleSubmit} className="p-4 bg-light rounded shadow">
-                    <h2>Iniciar Sesión</h2>
+                    <h2 className="chewy-font text-center">Iniciar Sesión</h2>
 
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Correo electrónico</label>
@@ -89,7 +89,7 @@ export const LoginForm = () => {
                         {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                     </div>
                     <div className="d-flex justify-content-end">
-                        <button type="submit" className="btn btn-primary">Entrar</button>
+                        <button type="submit" className="btn button-4michis chewy-font">Entrar</button>
                     </div>
 
                     {submitStatus && <div className="mt-3 alert alert-info">{submitStatus}</div>}

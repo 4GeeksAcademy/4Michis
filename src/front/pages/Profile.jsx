@@ -198,7 +198,7 @@ export const Profile = () => {
     };
 
     return (
-        <div className="container py-5">
+        <div className="container">
             {token ? (
                 <>
                     {activeSection === 'favorites' && <Favorites />}

@@ -21,7 +21,7 @@ export const AuthButton = () => {
             {isLoggedIn && (
                 <AccountMenu />
             )}
-            <button onClick={handleClick} className="btn  button-4michis chewy-font ">
+            <button onClick={handleClick} className="btn  button-4michis chewy-font">
                 {isLoggedIn ? 'Logout' : 'Login'}
             </button>
         </>

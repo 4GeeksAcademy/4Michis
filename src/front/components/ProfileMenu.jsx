@@ -20,7 +20,7 @@ const ProfileMenu = ({ onSelect }) => {
     return (
         <div className="row d-flex justify-content-center">
             {sections.map(({ key, label, icon }) => (
-                <div key={key} className="col-md-2 mb-3 profile-menu-card ">
+                <div key={key} className="col-6 col-md-2 mb-3 profile-menu-card ">
 
                     <div
                         className="card h-100 shadow-sm "

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import ContactModal from "../components/ContactModal";
 import UploadCatProfilePicture from "../components/UploadCatProfilePicture";
@@ -14,6 +15,7 @@ const CatProfilePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [message, setMessage] = useState("");//-----
   const [messageType, setMessageType] = useState("info");//---------
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCat = async () => {
@@ -52,6 +54,12 @@ const CatProfilePage = () => {
 
   const handleContact = async () => {
     const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/register");
+      return;
+    }
+
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats/${catId}/contact`, {
         method: "POST",
@@ -61,16 +69,18 @@ const CatProfilePage = () => {
         },
       });
       const data = await response.json();
+
       if (response.ok && data.owner) {
         setOwnerInfo(data.owner);
         setShowModal(true);
       } else {
-        alert(data.error || "No se pudo contactar.");
+        console.warn("Error del servidor:", data.error);
       }
     } catch (err) {
       console.error("Error al contactar:", err);
     }
   };
+
 
   const handleDeletePhoto = async (photoId) => {
     if (!window.confirm("¿Eliminar esta foto?")) return;

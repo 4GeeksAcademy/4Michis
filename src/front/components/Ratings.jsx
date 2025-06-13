@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import defaultProfilePlaceholder from '../assets/img/placeholder-perfil.jpg';
 
 export const Ratings = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -7,27 +8,6 @@ export const Ratings = () => {
     const [tab, setTab] = useState("sent");
     const [userDetails, setUserDetails] = useState({});
     const token = localStorage.getItem("token");
-
-    useEffect(() => {
-        const fetchReviews = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/reviews`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    dispatch({ type: "set_sent_reviews", payload: data.sent });
-                    dispatch({ type: "set_received_reviews", payload: data.received });
-                }
-            } catch (err) {
-                console.error("Error cargando valoraciones:", err);
-            }
-        };
-
-        if (token && (sentReviews.length === 0 || receivedReviews.length === 0)) {
-            fetchReviews();
-        }
-    }, [token, dispatch, sentReviews.length, receivedReviews.length]);
 
     useEffect(() => {
         const uniqueUserIds = new Set();
@@ -66,9 +46,9 @@ export const Ratings = () => {
 
         return (
             <li key={review.id} className="list-group-item mb-3 shadow-sm rounded">
-                <div className="d-flex align-items-center mb-2">
+                <div className="d-flex align-items-center mb-2 ">
                     <img
-                        src={user.profile_picture || "https://via.placeholder.com/40"}
+                        src={user.profile_picture || defaultProfilePlaceholder}
                         alt="Perfil"
                         className="rounded-circle me-2"
                         style={{ width: 40, height: 40, objectFit: 'cover' }}
@@ -86,7 +66,7 @@ export const Ratings = () => {
     };
 
     return (
-        <div className="container mt-5 col-6">
+        <div className="container mt-5 col-11 col-md-7">
             <h2 className="text-center mb-4">Tus valoraciones</h2>
             <div className="d-flex justify-content-center mb-3">
                 <button className={`btn btn-sm me-2 ${tab === "sent" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setTab("sent")}>Hechas</button>
