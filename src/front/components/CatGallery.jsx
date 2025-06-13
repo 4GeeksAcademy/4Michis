@@ -4,7 +4,7 @@ import CatCard from "../components/CatCard";
 export const CatGallery = () => {
   const [cats, setCats] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const catsPerPage = 9;
+  const catsPerPage = 12;
 
   // Función para obtener los gatos desde la API
   useEffect(() => {
@@ -45,7 +45,7 @@ export const CatGallery = () => {
 
       <div className="row justify-content-center g-1">
         {currentCats.map((cat) => (
-          <div key={cat.id} className="col-12 col-ms-6 col-md-4 col-lg-3 d-flex justify-content-center mb-4">
+          <div key={cat.id} className="col-6 col-ms-6 col-md-4 col-lg-3 d-flex justify-content-center mb-4">
             <CatCard cat={cat} />
           </div>
         ))}

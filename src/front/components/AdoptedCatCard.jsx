@@ -33,13 +33,22 @@ const AdoptedCatCard = ({ cat, userLabel, onRate, showRateButton = true }) => {
                 </p>
                 <div className="mt-auto">
                     {showRateButton ? (
-                        <button className="btn btn-outline-primary w-100" onClick={onRate}>
+                        <button
+                            className="btn btn-outline-primary w-100"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onRate();
+                            }}
+                        >
                             Valorar
                         </button>
                     ) : (
                         <button
                             className="btn btn-outline-secondary w-100"
-                            onClick={() => navigate("/private?section=ratings")}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                navigate("/private?section=ratings");
+                            }}
                         >
                             Ir a valoraciones
                         </button>
