@@ -67,3 +67,15 @@ body,
   background-color: #007aae;
   color: white;
 }
+
+/* MOVIMIENTO CARD */
+.cat-card-hover-effect {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.cat-card-hover-effect:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}

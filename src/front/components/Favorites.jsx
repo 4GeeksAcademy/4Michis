@@ -73,64 +73,64 @@ export const Favorites = () => {
             {loading && <Spinner />}
 
             {!loading && (
-                <div className="container mt-5">
-                    <h1 className="text-center mb-4">Mis Michis Favoritos</h1>
+                <div className="home-container p-4">
+                    <h1 className="text-center p-4 m-4 chewy-font">Mis Michis Favoritos</h1>
                     <div className="text-center">
                         {userFavorites.length === 0 ? (
                             <p>Aún no tienes ningún Michi en tus favoritos. <Link to="/" className="btn btn-link">Explorar Michis</Link></p>
                         ) : (
-                            <h2>Aquí están tus Michis favoritos</h2>
-                        )}
-                    </div>
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 justify-content-center">
-                        {userFavorites.map(favorite => {
-                            const michi = favorite.michi_details;
-                            // Usando el operador de encadenamiento opcional para mayor seguridad
-                            const imageUrl = michi?.photos?.[0]?.foto || defaultMichiImg;
+                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 justify-content-center ">
+                                {userFavorites.map(favorite => {
+                                    const michi = favorite.michi_details;
+                                    // Usando el operador de encadenamiento opcional para mayor seguridad
+                                    const imageUrl = michi?.photos?.[0]?.foto || defaultMichiImg;
 
-                            return (
-                                <div key={favorite.id} className="col mb-4">
-                                    <div className="card h-100 shadow-sm p-1"
-                                        style={{ backgroundColor: '#F8F8F7' }}>
-                                        <img
-                                            src={imageUrl}
-                                            className="mt-2"
-                                            alt={`Foto de ${michi.name}`}
-                                            style={{
-                                                height: '200px',
-                                                objectFit: 'cover',
-                                                width: '100%',
-                                                borderRadius: '8px',
-                                                cursor: "pointer"
-                                            }}
-                                            onClick={() => handleClick(michi.id)}
-                                        />
-                                        <div className="card-body d-flex flex-column justify-content-between">
-                                            <div>
-                                                <h5 className="card-title text-center mb-2">{michi.name || `Michi ID: ${michi.id}`}</h5>
-                                                <hr />
-                                                {michi.breed && <p className="card-text">Raza: {michi.breed}</p>}
-                                                {michi.age && <p className="card-text">Edad: {michi.age} años</p>}
-                                                {michi.description && <p className="card-text text-muted small">{michi.description}</p>}
-                                            </div>
-                                            <div className="d-grid gap-2 mt-auto">
-                                                <div
-                                                    className="position-absolute"
+                                    return (
+                                        <div key={favorite.id} className="col mb-4 ">
+                                            <div className="card h-100 shadow-sm p-1 cat-card-hover-effect"
+                                                style={{ backgroundColor: '#F8F8F7' }}>
+                                                <img
+                                                    src={imageUrl}
+                                                    className="mt-2"
+                                                    alt={`Foto de ${michi.name}`}
                                                     style={{
-                                                        bottom: "10px",
-                                                        right: "10px",
+                                                        height: '200px',
+                                                        objectFit: 'cover',
+                                                        width: '100%',
+                                                        borderRadius: '8px',
+                                                        cursor: "pointer"
                                                     }}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                >
-                                                    <AddFavorite michiId={michi.id} />
+                                                    onClick={() => handleClick(michi.id)}
+                                                />
+                                                <div className="card-body d-flex flex-column justify-content-between">
+                                                    <div>
+                                                        <h5 className="card-title text-center mb-2">{michi.name || `Michi ID: ${michi.id}`}</h5>
+                                                        <hr />
+                                                        {michi.breed && <p className="card-text">Raza: {michi.breed}</p>}
+                                                        {michi.age && <p className="card-text">Edad: {michi.age} años</p>}
+                                                        {michi.description && <p className="card-text text-muted small">{michi.description}</p>}
+                                                    </div>
+                                                    <div className="d-grid gap-2 mt-auto">
+                                                        <div
+                                                            className="position-absolute"
+                                                            style={{
+                                                                bottom: "10px",
+                                                                right: "10px",
+                                                            }}
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        >
+                                                            <AddFavorite michiId={michi.id} />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
+
                 </div>
             )}
         </div>
