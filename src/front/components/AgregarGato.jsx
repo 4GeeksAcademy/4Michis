@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { Spinner } from "./spiner/Spinner";
+import { useNavigate } from "react-router-dom";
 
 export const AgregarGato = () => {
   const { dispatch } = useGlobalReducer();
@@ -17,6 +19,9 @@ export const AgregarGato = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitStatus, setSubmitStatus] = useState(""); // ✅ para mostrar mensaje
 
+  const [isLoading, setIsLoading] = useState("");
+
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const handleChange = (e) => {
@@ -29,6 +34,7 @@ export const AgregarGato = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats`, {
@@ -90,11 +96,16 @@ export const AgregarGato = () => {
     } catch (error) {
       console.error("Error en el proceso:", error);
       setSubmitStatus("Error: " + error.message); // ✅ mensaje de error
-    }
+    } finally {
+            navigate('/')
+            setIsLoading(false);
+            
+        }
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-5">
+      {isLoading && <Spinner />}
       <div className="p-4 rounded bg-light shadow" style={{ width: "100%", maxWidth: "600px" }}>
         <h2 className="text-center fw-bold mb-4 display-6">Agregar Gato</h2>
 
