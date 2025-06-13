@@ -17,6 +17,8 @@ export const EditProfile = () => {
     const [dni, setDni] = useState("");
     const [phone, setPhone] = useState("");
     const [direction, setDirection] = useState("");
+    const [profilePictureFile, setProfilePictureFile] = useState(null);
+
     const [isLoading, setIsLoading] = useState("");
 
     const navigate = useNavigate();
@@ -152,92 +154,90 @@ export const EditProfile = () => {
         <div className="register-container d-flex flex-column justify-content-center align-items-center ">
             {isLoading && <Spinner />}
             <div className="register-form col-8 p-8 mt-5 mb-5">
+                <div className="p-4 bg-light rounded shadow">
 
-                <form onSubmit={handleSubmit} className="p-4 bg-light rounded shadow">
-                    <h2 className="text-center">Datos de Usuario</h2>
-                    <hr />
-                    <div>
-                        <label htmlFor="name" className="form-label">Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="name"
-                            name="name"
-                            value={name}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="lastname" className="form-label">Lastname</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="lastname"
-                            name="lastname"
-                            value={lastname}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="dni" className="form-label">DNI</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="dni"
-                            name="dni"
-                            value={dni}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="nickname" className="form-label">Nickname</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="nickmame"
-                            name="nickname"
-                            value={nickname}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="direction" className="form-label">Direction</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="direction"
-                            name="direction"
-                            value={direction}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="phone" className="form-label">Phone</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="phone"
-                            name="phone"
-                            value={phone}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="d-grid gap-2 justify-content-end">
-                        <button className="btn btn-primary m-5" type="submit">
-                            Guardar
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div className="register-form col-8 p-8">
-                <form className="p-4 bg-light rounded shadow" onSubmit={handleChangeProfilePicture}>
-                    <h2 className="text-center">Foto de Perfil</h2>
-                    <hr />
-                    <input type="file" name="PERFIL FEDE" className="form-control" />
-                    <div className="d-grid justify-content-end">
-                        <button className="btn btn-primary m-5" type="submit">Guardar</button>
-                    </div>
-                </form>
+                    <form onSubmit={handleSubmit} >
+                        <h2 className="text-center chewy-font">Datos de Usuario</h2>
+                        <hr />
+                        <div>
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                name="name"
+                                value={name}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="lastname" className="form-label">Lastname</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="lastname"
+                                name="lastname"
+                                value={lastname}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="dni" className="form-label">DNI</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="dni"
+                                name="dni"
+                                value={dni}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="nickname" className="form-label">Nickname</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="nickmame"
+                                name="nickname"
+                                value={nickname}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="direction" className="form-label">Direction</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="direction"
+                                name="direction"
+                                value={direction}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="phone" className="form-label">Phone</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="phone"
+                                name="phone"
+                                value={phone}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="d-grid gap-2 justify-content-end">
+                            <button className="btn button-4michis chewy-font m-3" type="submit">
+                                Guardar datos
+                            </button>
+                        </div>
+                    </form>
+                    <form onSubmit={handleChangeProfilePicture}>
+                        <input type="file" name="PERFIL FEDE" className="form-control" />
+                        <div className="d-grid justify-content-end">
+                            <button className="btn button-4michis chewy-font m-3" type="submit">Cambiar foto</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         </div >
