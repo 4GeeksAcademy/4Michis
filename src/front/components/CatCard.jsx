@@ -53,7 +53,7 @@ const CatCard = ({ cat }) => {
             right: "10px",
 
           }}
-          // Importante: Detenemos la propagación del clic aquí para que el botón AddFavorite funcione
+          // 22 Importante: Detenemos la propagación del clic aquí para que el botón AddFavorite funcione
           // y no active el handleClick de la tarjeta principal al hacer clic en él.
           onClick={(e) => e.stopPropagation()}
         >
