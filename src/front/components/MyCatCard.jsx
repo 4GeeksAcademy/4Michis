@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import ContactModal from "./ContactModal";
 import defaultProfileImg from "../assets/img/default_profile.png";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import CatStatusToggle from "./CatStatusToggle";
+import { useNavigate } from "react-router-dom";
 
-const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
+const MyCatCard = ({ cat, isOwner, onAdoptSelect, onRefresh }) => {
     const [selectedContact, setSelectedContact] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const { dispatch } = useGlobalReducer();
+    const navigate = useNavigate();
 
     const alreadyHasAdoptant =
         Array.isArray(cat.contacts) && cat.contacts.some(c => c.is_selected);
@@ -32,8 +35,28 @@ const MyCatCard = ({ cat, isOwner, onAdoptSelect }) => {
         : [];
 
     return (
-        <div className="card h-100">
-            <div className="card-header fw-bold">{cat.cat_name}</div>
+        <div className="card h-100 text-center">
+            {/* Cabecera con nombre y botones */}
+            <div className="card-header d-flex flex-column align-items-center">
+                <h6 className="text-uppercase fw-bold mb-2">{cat.cat_name}</h6>
+                <div className="d-flex gap-2 justify-content-center">
+                    <button
+                        className="btn btn-sm btn-outline-primary px-2 py-0"
+                        style={{ fontSize: "0.75rem", height: "28px" }}
+                        onClick={() => navigate(`/edit-cat/${cat.cat_id}`)}
+                        title="Editar gato"
+                    >
+                        🖊️
+                    </button>
+                    <CatStatusToggle
+                        catId={cat.cat_id}
+                        onStatusChange={onRefresh}
+                        size="sm"
+                    />
+                </div>
+            </div>
+
+            {/* Cuerpo con contactos */}
             <div className="card-body">
                 {recentContacts.length === 0 ? (
                     <p className="text-muted">Ningún interesado aún.</p>

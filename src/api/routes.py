@@ -558,42 +558,28 @@ def my_cats_with_contacts():
 
     return jsonify(result), 200
 
-
-@api.route("/cats/<int:cat_id>/adopt/<int:user_id>", methods=["PATCH"])
+@api.route("/cats/<int:cat_id>/toggle-active", methods=["PATCH"])
 @jwt_required()
-def mark_as_adoptant(cat_id, user_id):
-    current_user_id = get_jwt_identity()
-
+def toggle_cat_status(cat_id):
+    user_id = get_jwt_identity()
     cat = CatUser.query.get(cat_id)
+
     if not cat:
-        return jsonify({"error": "Gato no encontrado"}), 404
+        return jsonify({"msg": "Gato no encontrado"}), 404
 
-    print("Dueño del gato:", cat.user_id)
-    print("Usuario actual:", current_user_id)
+    if cat.user_id != int(user_id):
+        return jsonify({"msg": "No autorizado"}), 403
 
-    if int(cat.user_id) != int(current_user_id):
-        return jsonify({"error": "No tienes permiso para marcar al adoptante"}), 403
+    body = request.get_json()
+    new_status = body.get("is_active")
 
-    existing_adoptant = CatContactRequest.query.filter_by(
-        cat_id=cat_id,
-        is_selected=True
-    ).first()
+    if new_status is None:
+        return jsonify({"msg": "Falta el campo 'is_active'"}), 400
 
-    if existing_adoptant:
-        return jsonify({"error": "Ya has seleccionado un adoptante para este gato"}), 400
-
-    contact = CatContactRequest.query.filter_by(
-        cat_id=cat_id,
-        contactor_id=user_id
-    ).first()
-
-    if not contact:
-        return jsonify({"error": "Ese usuario no ha contactado por este gato"}), 404
-
-    contact.is_selected = True
+    cat.is_active = new_status
     db.session.commit()
 
-    return jsonify({"msg": "Adoptante marcado correctamente"}), 200
+    return jsonify({"msg": f"Gato {'habilitado' if new_status else 'deshabilitado'} correctamente"}), 200
 
 
 @api.route("/user/adopted-cats", methods=["GET"])

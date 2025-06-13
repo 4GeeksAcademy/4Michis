@@ -94,51 +94,72 @@ export const AgregarGato = () => {
   };
 
   return (
-    <div className="register-container d-flex flex-column justify-content-center align-items-center">
-      <div className="register-form col-8 p-8 mt-5 mb-5">
-        <form onSubmit={handleSubmit} className="p-4 bg-light rounded shadow">
-          <h2 className="text-center">Agregar Gato</h2>
-          <hr />
+    <div className="d-flex justify-content-center align-items-center mt-5">
+      <div className="p-4 rounded bg-light shadow" style={{ width: "100%", maxWidth: "600px" }}>
+        <h2 className="text-center fw-bold mb-4 display-6">Agregar Gato</h2>
 
-          <label className="form-label">Nombre</label>
-          <input type="text" className="form-control mb-2" name="name" value={formData.name} onChange={handleChange} />
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Nombre:</label>
+            <input type="text" className="form-control" name="name" value={formData.name} onChange={handleChange} />
+          </div>
 
-          <label className="form-label">Raza</label>
-          <input type="text" className="form-control mb-2" name="breed" value={formData.breed} onChange={handleChange} />
+          <div className="mb-3">
+            <label className="form-label">Raza:</label>
+            <input type="text" className="form-control" name="breed" value={formData.breed} onChange={handleChange} />
+          </div>
 
-          <label className="form-label">Peso</label>
-          <input type="text" className="form-control mb-2" name="weight" value={formData.weight} onChange={handleChange} />
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Peso:</label>
+              <input type="number" className="form-control" name="weight" value={formData.weight} onChange={handleChange} />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Edad:</label>
+              <input type="number" className="form-control" name="age" value={formData.age} onChange={handleChange} />
+            </div>
+          </div>
 
-          <label className="form-label">Edad</label>
-          <input type="text" className="form-control mb-2" name="age" value={formData.age} onChange={handleChange} />
+          <div className="mb-3">
+            <label className="form-label">Color:</label>
+            <input type="text" className="form-control" name="color" value={formData.color} onChange={handleChange} />
+          </div>
 
-          <label className="form-label">Color</label>
-          <input type="text" className="form-control mb-2" name="color" value={formData.color} onChange={handleChange} />
+          <div className="mb-3">
+            <label className="form-label">Sexo:</label>
+            <select className="form-select" name="sex" value={formData.sex} onChange={handleChange}>
+              <option value="">Seleccionar sexo</option>
+              <option value="male">Macho</option>
+              <option value="female">Hembra</option>
+            </select>
+          </div>
 
-          <label className="form-label">Sexo</label>
-          <input type="text" className="form-control mb-2" name="sex" value={formData.sex} onChange={handleChange} />
+          <div className="mb-3">
+            <label className="form-label">Información adicional:</label>
+            <textarea className="form-control" name="description" rows="2" value={formData.description} onChange={handleChange}></textarea>
+          </div>
 
-          <label className="form-label">Información adicional</label>
-          <input type="text" className="form-control mb-2" name="description" value={formData.description} onChange={handleChange} />
+          <div className="mb-4">
+            <label className="form-label">Foto de Perfil:</label>
+            <input
+              type="file"
+              className="form-control"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              accept="image/*"
+            />
+          </div>
 
-          <label className="form-label">Foto de Perfil</label>
-          <input
-            type="file"
-            className="form-control mb-3"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-            accept="image/*"
-          />
-
-          <div className="d-grid gap-2 justify-content-end">
-            <button className="btn btn-primary mt-3" type="submit">
+          <div className="text-center">
+            <button className="btn btn-success" type="submit">
               Agregar gato
             </button>
           </div>
         </form>
 
-        {/* ✅ Mensaje debajo del formulario */}
         {submitStatus && (
-          <div className="mt-3 alert alert-info text-center">{submitStatus}</div>
+          <div className="alert alert-info mt-3 text-center">
+            {submitStatus}
+          </div>
         )}
       </div>
     </div>

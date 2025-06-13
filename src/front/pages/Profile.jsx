@@ -183,6 +183,20 @@ export const Profile = () => {
         fetchMyCats();
     }, [token]);
 
+
+    const refreshMyCats = async () => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cats-contacted`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            const data = await res.json();
+            dispatch({ type: "set_my_cats", payload: data });
+        } catch (err) {
+            console.error("Error recargando gatos:", err);
+        }
+    };
+
     return (
         <div className="container py-5">
             {token ? (
@@ -217,7 +231,7 @@ export const Profile = () => {
                                 <div className="row">
                                     {unadoptedCats.map((cat) => (
                                         <div key={cat.cat_id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                                            <MyCatCard cat={cat} isOwner={true} onAdoptSelect={handleAdoptSelect} />
+                                            <MyCatCard cat={cat} isOwner={true} onAdoptSelect={handleAdoptSelect} onRefresh={refreshMyCats} />
                                         </div>
                                     ))}
                                 </div>
