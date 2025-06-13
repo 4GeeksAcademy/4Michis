@@ -4,7 +4,7 @@ import mimichisImg from "../assets/img/mimichis.png";
 import ratingImg from "../assets/img/rating.png";
 import dataImg from "../assets/img/data.png";
 import editdaImg from "../assets/img/editda.png";
-import michiAddImg from "../assets/img/editda.png";
+import michiAddImg from "../assets/img/addcat.png";
 
 const ProfileMenu = ({ onSelect }) => {
     const sections = [
