@@ -80,9 +80,8 @@ export const AgregarGato = () => {
       });
       const updatedCat = await updatedCatResponse.json();
       dispatch({ type: "add_cat", payload: updatedCat });
-
+      navigate('/')
       setSubmitStatus("Gato y foto agregados correctamente."); // ✅ mensaje
-
       setFormData({
         name: "",
         breed: "",
@@ -95,12 +94,12 @@ export const AgregarGato = () => {
       setSelectedFile(null);
     } catch (error) {
       console.error("Error en el proceso:", error);
-      setSubmitStatus("Error: " + error.message); // ✅ mensaje de error
+      setSubmitStatus("Error: al cargar el michi " + error.message); // ✅ mensaje de error
     } finally {
-            navigate('/')
-            setIsLoading(false);
-            
-        }
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    }
   };
 
   return (
