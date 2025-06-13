@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
+
+const defaultProfilePlaceholder = "https://via.placeholder.com/100?text=No+Foto"; 
+
 export const MyData = ({ onEditClick }) => {
 
     const { store, dispatch } = useGlobalReducer();
@@ -16,7 +19,7 @@ export const MyData = ({ onEditClick }) => {
             <h2 className="text-center mb-4 chewy-font">Datos de Usuario</h2>
 
 
-            <div className="card shadow-sm d-flex p-4 mx-auto " style={{ maxWidth: '600px' }}>
+            <div className="card shadow-sm d-flex p-4 mx-auto" style={{ maxWidth: '600px' }}>
         <div className="row g-3">
                 
                 <div className="col-sm-8 order-sm-1 order-2">

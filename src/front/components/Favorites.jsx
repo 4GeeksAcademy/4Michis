@@ -79,15 +79,15 @@ export const Favorites = () => {
                         {userFavorites.length === 0 ? (
                             <p>Aún no tienes ningún Michi en tus favoritos. <Link to="/" className="btn btn-link">Explorar Michis</Link></p>
                         ) : (
-                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 justify-content-center">
+                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 justify-content-center ">
                                 {userFavorites.map(favorite => {
                                     const michi = favorite.michi_details;
                                     // Usando el operador de encadenamiento opcional para mayor seguridad
                                     const imageUrl = michi?.photos?.[0]?.foto || defaultMichiImg;
 
                                     return (
-                                        <div key={favorite.id} className="col mb-4">
-                                            <div className="card h-100 shadow-sm p-1"
+                                        <div key={favorite.id} className="col mb-4 ">
+                                            <div className="card h-100 shadow-sm p-1 cat-card-hover-effect"
                                                 style={{ backgroundColor: '#F8F8F7' }}>
                                                 <img
                                                     src={imageUrl}
