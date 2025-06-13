@@ -74,7 +74,7 @@ export const Favorites = () => {
 
             {!loading && (
                 <div className="container mt-5">
-                    <h1 className="text-center mb-4">Mis Michis Favoritos</h1>
+                    <h1 className="text-center mb-4 chewy-font">Mis Michis Favoritos</h1>
                     <div className="text-center">
                         {userFavorites.length === 0 ? (
                             <p>Aún no tienes ningún Michi en tus favoritos. <Link to="/" className="btn btn-link">Explorar Michis</Link></p>
