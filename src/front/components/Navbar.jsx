@@ -36,12 +36,12 @@ export const Navbar = () => {
 					onChange={(e) => setQuery(e.target.value)}
 					className="form-control"
 				/>
-				<button type="submit" className="btn btn-primary ms-2">Buscar</button>
+				<button type="submit" className="btn  button-4michis chewy-font  ms-2">Buscar</button>
 			</form>
 
 			<div className="d-flex gap-2">
 				{!isLoggedIn && !isOnRegisterPage && (
-					<Link to="/register" className="btn btn-outline-dark">
+					<Link to="/register" className="btn button-4michis chewy-font btn-outline-dark">
 						Register
 					</Link>
 				)}

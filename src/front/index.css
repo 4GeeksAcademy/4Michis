@@ -57,3 +57,12 @@ body,
 .welcome-box {
   padding: 50px;
 }
+.button-4michis {
+  background-color: #009ee2;
+  color: white;
+  font-size: 1.3rem;
+}
+.button-4michis:hover {
+  background-color: #007aae;
+  color: white;
+}
