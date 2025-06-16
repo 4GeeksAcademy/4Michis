@@ -125,7 +125,7 @@ const CatProfilePage = () => {
 
         <div
           id={`catCarousel-${cat.id}`}
-          className="carousel slide shadow rounded col-6 p-3"
+          className="carousel slide shadow rounded col-12 col-md-6 p-3"
           data-bs-ride="false"
         >
           <div

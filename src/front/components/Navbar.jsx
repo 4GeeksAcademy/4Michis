@@ -24,7 +24,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-dark bg-light px-4">
 			<div className="container">
 				<Link className="nav-link mx-auto" to="/"><span><img className="michis-logo" src={michisLogo} /></span></Link>
-				<div className="mx-auto p-2 col-4 p-md-4">
+				<div className="mx-auto p-2 col-12 col-md-4 p-md-4">
 					<form onSubmit={handleSearch} className="d-flex">
 						<input
 							type="text"
