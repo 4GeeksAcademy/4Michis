@@ -237,7 +237,7 @@ const CatProfilePage = () => {
 
             {currentUserId !== cat.user_id && (
               <div className="text-center mt-4">
-                <button className="btn btn-success btn-lg" onClick={handleContact}>
+                <button className="btn button-4michis chewy-font btn-lg" onClick={handleContact}>
                   Contactar para adoptar
                 </button>
               </div>

@@ -1,3 +1,5 @@
+import defaultMichiPlaceholder from '../assets/img/placeholder-perfil.jpg';
+
 const ContactModal = ({ show, person, onClose, title = "Información de contacto" }) => {
     if (!show || !person) return null;
 
@@ -12,7 +14,7 @@ const ContactModal = ({ show, person, onClose, title = "Información de contacto
                         </div>
                         <div className="modal-body text-center">
                             <img
-                                src={person.profile_picture || "https://via.placeholder.com/100"}
+                                src={person.profile_picture || defaultMichiPlaceholder}
                                 alt="Foto de perfil"
                                 className="rounded-circle mb-3"
                                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
