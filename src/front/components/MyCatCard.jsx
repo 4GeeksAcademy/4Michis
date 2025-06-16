@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ContactModal from "./ContactModal";
-import defaultProfileImg from "../assets/img/default_profile.png";
+import defaultProfileImg from "../assets/img/placeholder-perfil.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import CatStatusToggle from "./CatStatusToggle";
 import { useNavigate } from "react-router-dom";

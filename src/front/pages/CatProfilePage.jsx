@@ -125,7 +125,7 @@ const CatProfilePage = () => {
 
         <div
           id={`catCarousel-${cat.id}`}
-          className="carousel slide shadow rounded col-6 p-3"
+          className="carousel slide shadow rounded col-12 col-md-6 p-3"
           data-bs-ride="false"
         >
           <div
@@ -237,7 +237,7 @@ const CatProfilePage = () => {
 
             {currentUserId !== cat.user_id && (
               <div className="text-center mt-4">
-                <button className="btn btn-success btn-lg" onClick={handleContact}>
+                <button className="btn button-4michis chewy-font btn-lg" onClick={handleContact}>
                   Contactar para adoptar
                 </button>
               </div>
