@@ -19,9 +19,9 @@ flask-migrate = "*"
 flask-sqlalchemy = "*"
 flask-jwt-extended = "*"
 flask-bcrypt = "*"
-faker = "*"
-cloudinary = "*"
 flask = "*"
+cloudinary = "*"
+faker = "*"
 
 [requires]
 python_version = "3.13"
