@@ -57,6 +57,7 @@
 	"dependencies": {
 		"@cloudinary/react": "^1.14.3",
 		"@cloudinary/url-gen": "^1.21.0",
+		"framer-motion": "^12.18.1",
 		"jwt-decode": "^4.0.0",
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",

@@ -66,7 +66,7 @@ export const WelcomeBox = () => {
           <p className="welcome-text">
             Descubre cientos de gatos adorables que buscan un nuevo hogar lleno de amor. ¡Tu mejor amigo te está esperando!
           </p>
-          <a href="/register" className="welcome-cta">¡Regístrate ahora!</a>
+          <a href="/register" className="welcome-cta chewy-font h4">¡Regístrate ahora!</a>
         </div>
       </div>
     </div>
