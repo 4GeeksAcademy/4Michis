@@ -782,6 +782,20 @@ def insert_test_cats(n=10, user_id=1):
     db.session.commit()
 
 
+@api.route("/stats", methods=["GET"])
+def get_stats():
+    try:
+        return jsonify({
+            "users": User.query.filter_by(is_active=True).count(),
+            "cats": CatUser.query.filter_by(is_active=True).count(),
+            "contacts": CatContactRequest.query.count(),
+            "adoptions": CatContactRequest.query.filter_by(is_selected=True).count()
+        }), 200
+    except Exception as e:
+        print("❌ Error en /api/stats:", e)
+        return jsonify({"error": "Error interno del servidor"}), 500
+
+
 @api.route("/insert-test-cats", methods=["POST"])
 def add_test_cats():
     insert_test_cats(n=10, user_id=1)

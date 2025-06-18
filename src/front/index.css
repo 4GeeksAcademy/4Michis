@@ -67,6 +67,16 @@ body,
   background-color: #007aae;
   color: white;
 }
+
+.button-4michis:active {
+  background-color: #007aae;
+  color: white;
+}
+.active > .page-link {
+  background-color: #5ebfff;
+  color: white;
+  border: 1px solid #007aae;
+}
 .button-cancel-4michis {
   background-color: #d6d6d6;
   color: #333;
@@ -267,4 +277,28 @@ body,
   max-width: 100%;
   max-height: 100%;
   object-fit: contain; /* Ajusta la imagen sin recortarla, manteniendo sus proporciones */
+}
+
+.site-stats-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #002332;
+  border-top: 6px #009ee2 solid;
+  background-image: url("./assets/img/cat_bg_pattern30.png");
+}
+
+.site-stats-icon {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  color: #009ee2;
+}
+
+.site-stats-number {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+.site-stats-label {
+  color: #009ee2;
 }
