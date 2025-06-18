@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { Spinner } from "./spiner/Spinner";
 
 const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
   const [photoFile, setPhotoFile] = useState(null);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("info");
+
+  const [isLoading, setIsLoading] = useState("");
 
   const handleChange = (e) => {
     setPhotoFile(e.target.files[0]);
@@ -11,6 +14,7 @@ const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
 
   const handleUpload = async () => {
     if (!photoFile) return;
+    setIsLoading(true);
 
     const token = localStorage.getItem("token");
     const formData = new FormData();
@@ -41,11 +45,16 @@ const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
       console.error("Error:", err);
       setMessage("Error de red al subir la foto");
       setMessageType("danger");
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
     }
   };
 
   return (
     <div className="mt-3">
+      {isLoading && <Spinner />}
       <h6>Subir nueva foto</h6>
       <input type="file" onChange={handleChange} className="form-control mb-2" />
       <button onClick={handleUpload} className="btn btn-sm btn-success">

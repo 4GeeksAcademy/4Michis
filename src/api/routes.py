@@ -3,6 +3,10 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 
 
+import re
+from sqlalchemy.types import String
+from sqlalchemy import or_, and_, cast
+from flask import request, jsonify
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Favorites, TokenBlockedList, UserReviews, UserReviewsDetails, CatUser, CatPhoto, CatContactRequest
 from api.utils import generate_sitemap, APIException
@@ -690,28 +694,63 @@ def search_cats():
     if not query:
         return jsonify([]), 200
 
-    translated_sex = None
-    if query in ["macho", "male"]:
-        translated_sex = "male"
-    elif query in ["hembra", "female"]:
-        translated_sex = "female"
-
     filters = [CatUser.is_active.is_(True)]
+    query = query.replace("anos", "años").replace(
+        "año", "años").replace("year", "años").replace("years", "años")
 
-    if translated_sex:
-        filters.append(CatUser.sex == translated_sex)
+    sex = None
+    age_value = None
+    age_range = None
+    remaining_terms = []
+
+    # Detectar sexo
+    if "macho" in query or "male" in query:
+        sex = "male"
+    elif "hembra" in query or "female" in query:
+        sex = "female"
+
+    # Detectar rango de edad (ej. entre 3 y 6 años, de 2 a 5 años)
+    rango_match = re.search(
+        r"(entre|de)?\s*(\d+)\s*(a|y)\s*(\d+)\s*años", query)
+    if rango_match:
+        age_start = int(rango_match.group(2))
+        age_end = int(rango_match.group(4))
+        age_range = (age_start, age_end)
     else:
-        filters.append(or_(
-            CatUser.age.cast(db.String).ilike(f"%{query}%"),
-            CatUser.breed.ilike(f"%{query}%"),
-            CatUser.color.ilike(f"%{query}%"),
-        ))
+        # Detectar edad simple (ej. 4 años)
+        edad_match = re.search(r"(\d+)\s*años", query)
+        if edad_match:
+            age_value = int(edad_match.group(1))
+        else:
+            # si no hay edad clara, seguir con búsqueda libre
+            for word in query.split():
+                if word not in ["macho", "male", "hembra", "female", "años", "entre", "de", "a", "y"]:
+                    remaining_terms.append(word)
 
-    cats = CatUser.query.filter(*filters).all()
+    # Aplicar filtros
+    if sex:
+        filters.append(CatUser.sex == sex)
+
+    if age_range:
+        filters.append(CatUser.age.between(age_range[0], age_range[1]))
+    elif age_value:
+        filters.append(CatUser.age == age_value)
+
+    if remaining_terms:
+        for term in remaining_terms:
+            filters.append(or_(
+                cast(CatUser.age, String).ilike(f"%{term}%"),
+                CatUser.breed.ilike(f"%{term}%"),
+                CatUser.color.ilike(f"%{term}%"),
+            ))
+
+    cats = CatUser.query.filter(and_(*filters)).all()
     return jsonify([cat.serialize() for cat in cats]), 200
 
 
 # gatos de prueba, snippet
+
+
 def insert_test_cats(n=10, user_id=1):
     colors = ['negro', 'blanco', 'gris', 'naranja', 'marrón']
     breeds = ['persa', 'siamés', 'maine coon', 'británico', 'común europeo']
@@ -741,6 +780,20 @@ def insert_test_cats(n=10, user_id=1):
         db.session.add(photo)
 
     db.session.commit()
+
+
+@api.route("/stats", methods=["GET"])
+def get_stats():
+    try:
+        return jsonify({
+            "users": User.query.filter_by(is_active=True).count(),
+            "cats": CatUser.query.filter_by(is_active=True).count(),
+            "contacts": CatContactRequest.query.count(),
+            "adoptions": CatContactRequest.query.filter_by(is_selected=True).count()
+        }), 200
+    except Exception as e:
+        print("❌ Error en /api/stats:", e)
+        return jsonify({"error": "Error interno del servidor"}), 500
 
 
 @api.route("/insert-test-cats", methods=["POST"])

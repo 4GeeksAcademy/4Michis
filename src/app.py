@@ -36,7 +36,7 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 # JWT Configuration
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 
 
 @jwt.token_in_blocklist_loader

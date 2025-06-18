@@ -11,7 +11,6 @@ const CatCard = ({ cat }) => {
     navigate(`/cat/${cat.id}`);
   };
 
-  // Imagen del gato (o placeholder si no hay fotos)
   const imageUrl =
     cat.photos?.[0]?.foto || defaultMichiPlaceholder;
 
@@ -30,7 +29,6 @@ const CatCard = ({ cat }) => {
         />
       </div>
 
-      {/* Información del gato */}
       <div className="card-body text-center p-2 position-relative">
         <h6 className="card-title text-uppercase fw-bold mb-1 " >{cat.name}</h6>
         <hr />
@@ -53,8 +51,6 @@ const CatCard = ({ cat }) => {
             right: "10px",
 
           }}
-          // 22 Importante: Detenemos la propagación del clic aquí para que el botón AddFavorite funcione
-          // y no active el handleClick de la tarjeta principal al hacer clic en él.
           onClick={(e) => e.stopPropagation()}
         >
           <AddFavorite michiId={cat.id} />
