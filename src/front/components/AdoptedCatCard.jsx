@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import defaultMichiPlaceholder from '../assets/img/default_profile.png';
+
 
 const AdoptedCatCard = ({ cat, userLabel, onRate, showRateButton = true }) => {
     const { store } = useGlobalReducer();
@@ -21,7 +23,7 @@ const AdoptedCatCard = ({ cat, userLabel, onRate, showRateButton = true }) => {
     return (
         <div className="card h-100 shadow-sm" style={{ height: "18rem", cursor: "pointer", position: "relative" }} onClick={handleClick}>
             <img
-                src={cat.photo || "https://via.placeholder.com/400x300?text=Michi"}
+                src={cat.photo || defaultMichiPlaceholder}
                 className="card-img-top"
                 alt={`Foto de ${cat.cat_name}`}
                 style={{ objectFit: "cover", height: "200px" }}

@@ -57,7 +57,7 @@ const UploadCatProfilePicture = ({ catId, onUploadSuccess }) => {
       {isLoading && <Spinner />}
       <h6>Subir nueva foto</h6>
       <input type="file" onChange={handleChange} className="form-control mb-2" />
-      <button onClick={handleUpload} className="btn btn-sm btn-success">
+      <button onClick={handleUpload} className="btn btn-sm button-4michis chewy-font">
         Subir Foto
       </button>
 
